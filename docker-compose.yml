@@ -13,6 +13,12 @@ services:
       - "127.0.0.1:3306:3306"
     volumes:
       - mariadb_data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     restart: always
 
   backend:
@@ -24,7 +30,8 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       TZ: ${TZ}
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     restart: always
 
   frontend:
