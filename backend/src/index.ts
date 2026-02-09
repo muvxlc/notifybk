@@ -11,11 +11,14 @@ const app = new Elysia()
     .onError(({ code, error }) => {
         console.error(`[${code}]`, error);
     })
-    .use(swagger())
-    .use(auth)
-    .use(configs)
-    .use(connections)
-    .get("/", () => "Elysia Dashboard API")
+    .group("/api", (app) =>
+        app
+            .use(swagger())
+            .use(auth)
+            .use(configs)
+            .use(connections)
+            .get("/", () => "Elysia Dashboard API")
+    )
     .listen(process.env.PORT || 3000);
 
 console.log(
