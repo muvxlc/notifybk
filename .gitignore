@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+.bun/
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Build Outputs
+dist/
+build/
+out/
+
+# Generated Files
+elysia-dashboard-migration.zip
+backups/
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
