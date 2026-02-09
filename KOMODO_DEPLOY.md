@@ -55,6 +55,7 @@ cat .env
 -   **Database Connection Failed**:
     -   เช็คว่า `MYSQL_USER`, `MYSQL_PASSWORD` และ `DATABASE_URL` ตรงกัน
     -   เช็คว่า service name ใน `docker-compose.yml` คือ `mysql`
--   **Build Failed**:
-    -   ดู Build Logs ใน Komodo
-    -   ตรวจสอบว่าไฟล์ `Dockerfile` ใน `backend/` และ `frontend/` ถูกต้อง
+-   **Code Not Updating**:
+    -   ในเมนู Stack ของ Komodo, ให้เปิดใช้ **"Pre Build Images"** (เปลี่ยนจาก DISALBED เป็น ENABLED)
+    -   หรือเพิ่ม `--build` ในช่อง **Extra Args** (ถ้ามี)
+    -   หรือกด **Action** -> **Rebuild** / **Force Build**
