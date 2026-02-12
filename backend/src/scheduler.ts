@@ -17,13 +17,16 @@ export async function startScheduler() {
     }
 
     // Refresh jobs every 10 seconds to pick up changes faster
+    const timeZone = process.env.TZ || "Asia/Bangkok";
+    console.log(`Starting scheduler with timezone: ${timeZone}`);
+
     new CronJob("*/10 * * * * *", async () => {
         try {
             await refreshJobs();
         } catch (e) {
             console.error("Scheduled job refresh failed:", e);
         }
-    }, null, true);
+    }, null, true, timeZone);
 }
 
 async function refreshJobs() {
@@ -65,10 +68,11 @@ async function refreshJobs() {
 
             try {
                 console.log(`Starting job for config ${config.id} with schedule ${config.scheduleCron}`);
+                const timeZone = process.env.TZ || "Asia/Bangkok";
                 const job = new CronJob(config.scheduleCron, async () => {
                     await executeQuery(config);
-                });
-                job.start();
+                }, null, true, timeZone);
+                // job.start(); // start is already called by the 4th argument 'true'
                 jobs.set(config.id, { job, schedule: config.scheduleCron });
             } catch (e) {
                 console.error(`Failed to schedule job for config ${config.id}:`, e);
