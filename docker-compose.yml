@@ -28,7 +28,7 @@ services:
     environment:
       DATABASE_URL: ${DATABASE_URL}
       JWT_SECRET: ${JWT_SECRET}
-      TZ: ${TZ}
+      TZ: ${TZ:-Asia/Bangkok}
     depends_on:
       mysql:
         condition: service_healthy
